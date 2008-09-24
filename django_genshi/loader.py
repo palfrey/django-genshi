@@ -4,7 +4,7 @@ from genshi.template.loader import TemplateLoader, TemplateNotFound
 
 from django_genshi.util import memoize, load_module_attr
 
-__all__ = ['get_template', 'select_template']
+__all__ = ['get_template', 'select_template', 'TemplateNotFound']
 
 log = logging.getLogger (__name__)
 
