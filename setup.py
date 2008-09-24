@@ -12,7 +12,7 @@ setup (
 	author_email = "jmillikin@gmail.com",
 	license = "MIT",
 	url = "https://launchpad.net/django-genshi",
-	download_url = "http://cheeseshop.python.org/pypi/django-genshi/%s" % version,
+	download_url = "http://pypi.python.org/pypi/django-genshi/%s" % version,
 	platforms = ["Platform Independent"],
 	classifiers = [
 		"Development Status :: 4 - Beta",
