@@ -1,3 +1,4 @@
+from os.path import dirname, join
 from setuptools import setup, Extension
 
 version = '1.0.0'
@@ -6,6 +7,7 @@ setup (
 	name = 'django-genshi',
 	version = version,
 	description = "Django integration for Genshi",
+	long_description = open (join (dirname (__file__), 'README.txt')).read (),
 	author = "John Millikin",
 	author_email = "jmillikin@gmail.com",
 	license = "MIT",
@@ -25,4 +27,8 @@ setup (
 		"Topic :: Text Processing :: Markup :: XML",
 	],
 	keywords = ["django", "genshi"],
+	install_requires = [
+		"Django>=1.0_final",
+		"Genshi>=0.5.1",
+	]
 )
