@@ -30,5 +30,5 @@ setup (
 	install_requires = [
 		"Django>=1.0_final",
 		"Genshi>=0.5.1",
-	]
+	],
 )
