@@ -1,5 +1,5 @@
 __author__ = "John Millikin <jmillikin@gmail.com>"
-__version__ = (1, 0, 0)
+__version__ = (1, 1, 0)
 __license__ = """Copyright (c) 2008 John Millikin
 
 Permission is hereby granted, free of charge, to any person
