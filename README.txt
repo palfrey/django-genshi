@@ -18,13 +18,13 @@ The API of ``django-genshi`` is intended to mirror that of Django, while
 writing or manipulating the templates will require knowledge of Genshi.
 
 Genshi cannot use Django's default template loaders -- to work around this,
-the ``app_directories`` and ``filesystem`` loaders have been modified and
-included in the ``django_genshi.loaders`` package. Modify your
+the ``app_directories``, ``eggs`, and ``filesystem`` loaders have been
+modified and included in the ``django_genshi.loaders`` package. Modify your
 ``TEMPLATE_LOADERS`` accordingly.
 
 Example::
 
-    >>> from django_genshi import Context, render_to_response
+    >>> from django_genshi import render_to_response
     >>> response = render_to_response ('template_name.xml', {"name": "world"})
     >>> print response.content
     <h1>Hello world!</h1>
