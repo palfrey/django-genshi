@@ -14,7 +14,7 @@ setup (
 	url = "https://launchpad.net/django-genshi",
 	download_url = "http://pypi.python.org/pypi/django-genshi/%s" % version,
 	platforms = ["Platform Independent"],
-	packages = ['django_genshi'],
+	packages = ['django_genshi', 'django_genshi.loaders'],
 	classifiers = [
 		"Development Status :: 4 - Beta",
 		"Framework :: Django",
