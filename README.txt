@@ -18,7 +18,7 @@ The API of ``django-genshi`` is intended to mirror that of Django, while
 writing or manipulating the templates will require knowledge of Genshi.
 
 Genshi cannot use Django's default template loaders -- to work around this,
-the ``app_directories``, ``eggs`, and ``filesystem`` loaders have been
+the ``app_directories``, ``eggs``, and ``filesystem`` loaders have been
 modified and included in the ``django_genshi.loaders`` package. Modify your
 ``TEMPLATE_LOADERS`` accordingly.
 
