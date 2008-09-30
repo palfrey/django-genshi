@@ -20,7 +20,7 @@ def _stream_to_response (stream, charset, output_type, content_type):
 	
 @memoize ({}, 0)
 def _get_filters ():
-	names = getattr (settings, 'TEMPLATE_FILTERS', ())
+	names = getattr (settings, 'GENSHI_TEMPLATE_FILTERS', ())
 	return tuple (map (load_module_attr, names))
 	
 def render_to_stream (template_name, dictionary = None,

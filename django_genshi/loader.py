@@ -26,15 +26,15 @@ def _get_load_func (path):
 	if func.is_usable:
 		return func
 		
-	log.warning ("Your TEMPLATE_LOADERS setting includes %r,"
+	log.warning ("Your GENSHI_TEMPLATE_LOADERS setting includes %r,"
 	             " but your Python installation doesn't support"
 	             " that type of template loading. Consider"
 	             " removing that line from"
-	             " TEMPLATE_LOADERS.", path)
+	             " GENSHI_TEMPLATE_LOADERS.", path)
 	
 @memoize ({}, 0)
 def _get_loader ():
-	loader_paths = settings.TEMPLATE_LOADERS
+	loader_paths = getattr (settings, 'GENSHI_TEMPLATE_LOADERS', ())
 	loaders = ((path, _get_load_func (path)) for path in loader_paths)
 	load_funcs = tuple ((p, l) for p, l in loaders if l)
 	
