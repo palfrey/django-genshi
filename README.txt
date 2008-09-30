@@ -19,8 +19,9 @@ writing or manipulating the templates will require knowledge of Genshi.
 
 Genshi cannot use Django's default template loaders -- to work around this,
 the ``app_directories``, ``eggs``, and ``filesystem`` loaders have been
-modified and included in the ``django_genshi.loaders`` package. Modify your
-``TEMPLATE_LOADERS`` accordingly.
+modified and included in the ``django_genshi.loaders`` package. To avoid
+conflicts with Django's template system, place such loaders in the
+``GENSHI_TEMPLATE_LOADERS`` setting.
 
 Example::
 
@@ -41,3 +42,12 @@ XHTML). The decision of which to render is usually based on the HTTP
 ``Accept`` header. The ``shortcuts.render_to_response_autodetect`` function
 implements a reasonable algorithm for autodetecting output formats, and
 serves as an example for writing custom encoders in general.
+
+Filters
+=======
+
+Arbitrary Genshi filter functions may be registered, using the
+``GENSHI_TEMPLATE_FILTERS`` setting. They will be applied to generated
+template streams by the shortcut functions prior to rendering the
+streams. Example filters are included in the ``django_genshi.filters``
+module.
