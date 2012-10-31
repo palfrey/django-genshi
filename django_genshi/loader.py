@@ -62,15 +62,15 @@ def _get_loader ():
 		auto_reload = True,
 	)
 	
-def get_template (template_name):
+def get_template (template_name, cls = None):
 	loader = _get_loader ()
-	return loader.load (template_name, relative_to = '/')
+	return loader.load (template_name, relative_to = '/', cls = cls)
 	
-def select_template (template_name_list):
+def select_template (template_name_list, cls = None):
 	loader = _get_loader ()
 	for name in template_name_list:
 		try:
-			return loader.load (name, relative_to = '/')
+			return loader.load (name, relative_to = '/', cls = cls)
 		except TemplateNotFound:
 			pass
 	raise TemplateNotFound (', '.join (template_name_list), [])

@@ -20,6 +20,9 @@ from django_genshi.context import Context
 from django_genshi.loader import get_template, select_template
 from django_genshi.util import memoize, load_module_attr
 
+from genshi.template.text import NewTextTemplate
+from genshi.template import MarkupTemplate
+
 __all__ = ['render_to_stream', 'render_to_response',
            'render_to_response_autodetect']
 
@@ -28,8 +31,11 @@ XHTML_CONTENT_TYPE = 'application/xhtml+xml'
 def _stream_to_response (stream, charset, output_type, content_type):
 	filtered = stream.filter (*_get_filters ())
 	
-	text = filtered.render (output_type, encoding = charset,
-	                        strip_whitespace = False)
+	if output_type == 'text':
+		text = filtered.render (output_type, encoding = charset)
+	else:
+		text = filtered.render (output_type, encoding = charset,
+								skip_whitespace = False)
 	full_content_type = '%s; charset=%s' % (content_type, charset)
 	return HttpResponse (text, content_type = full_content_type)
 	
@@ -39,14 +45,20 @@ def _get_filters ():
 	return tuple (map (load_module_attr, names))
 	
 def render_to_stream (template_name, dictionary = None,
-                      context_instance = None):
+                      context_instance = None,
+                      use_text_template = False):
 	"""Render a template and data into a Genshi markup stream."""
 	if dictionary is None:
 		dictionary = {}
-	if isinstance (template_name, (list, tuple)):
-		template = select_template (template_name)
+
+	if use_text_template:
+		cls = NewTextTemplate
 	else:
-		template = get_template (template_name)
+		cls = MarkupTemplate
+	if isinstance (template_name, (list, tuple)):
+		template = select_template (template_name, cls = cls)
+	else:
+		template = get_template (template_name, cls = cls)
 		
 	if context_instance:
 		context_instance.update (dictionary)
@@ -55,13 +67,23 @@ def render_to_stream (template_name, dictionary = None,
 		
 	return template.generate (context_instance)
 	
-def render_to_response (*args, **kwargs):
+def render_to_response (template_name, dictionary = None,
+                      context_instance = None,
+                      use_text_template = False):
 	"""Render a template and data into an ``HttpResponse``."""
 	charset = settings.DEFAULT_CHARSET
 	content_type = settings.DEFAULT_CONTENT_TYPE
 	
-	stream = render_to_stream (*args, **kwargs)
-	return _stream_to_response (stream, charset, 'html', content_type)
+	stream = render_to_stream (template_name,
+			dictionary = dictionary,
+			context_instance = context_instance,
+			use_text_template = use_text_template)
+
+	if use_text_template:
+		output_type = 'text'
+	else:
+		output_type = 'html'
+	return _stream_to_response (stream, charset, output_type, content_type)
 	
 def render_to_response_autodetect (request, template_name,
                                    dictionary = None,
